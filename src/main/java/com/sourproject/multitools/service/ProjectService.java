@@ -27,7 +27,7 @@ public class ProjectService {
 
 	public Project toEntity(ProjectDTO projectDTO, Project project) {
 		project.setCreationDate(projectDTO.getCreationDate());
-		project.setProjectName(project.getProjectName());
+		project.setProjectName(projectDTO.getProjectName());
 
 		return project;
 	}
@@ -59,18 +59,18 @@ public class ProjectService {
 	public void delete(Integer idProject) {
 		projectRepo.deleteById(idProject);
 	}
-	
+
 	public List<ProjectDTO> listAll() {
 		List<Project> listProject = projectRepo.findAll();
 		List<ProjectDTO> listProjectDTO = new ArrayList<>();
-		
+
 		for (Project project : listProject) {
 			ProjectDTO projectDTO = new ProjectDTO();
 			toDto(project, projectDTO);
 			listProjectDTO.add(projectDTO);
 		}
 		return listProjectDTO;
-		
+
 	}
 
 }

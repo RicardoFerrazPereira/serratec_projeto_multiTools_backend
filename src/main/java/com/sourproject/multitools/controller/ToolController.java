@@ -14,36 +14,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sourproject.multitools.DTO.ProjectDTO;
-import com.sourproject.multitools.service.ProjectService;
+import com.sourproject.multitools.DTO.ToolDTO;
+import com.sourproject.multitools.service.ToolService;
 
 @RestController
-@RequestMapping("/project")
-public class ProjectController {
-
+@RequestMapping("/tool")
+public class ToolController {
+	
 	@Autowired
-	ProjectService projectService;
-
+	ToolService toolService;
+	
 	@PostMapping
-	public ResponseEntity<Void> projectCreate(@RequestBody ProjectDTO projectDTO) {
-		projectService.create(projectDTO);
+	public ResponseEntity<Void> toolCreate(@RequestBody ToolDTO toolDTO) {
+		toolService.create(toolDTO);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-
+	
 	@GetMapping
-	public ResponseEntity<List<ProjectDTO>> projectList() {
-		return ResponseEntity.ok(projectService.listAll());
+	public ResponseEntity<List<ToolDTO>> toolList() {
+		return ResponseEntity.ok(toolService.listAll());		
 	}
-
-	@DeleteMapping("/{idProject}")
-	public ResponseEntity<Void> projectDelete(@PathVariable Integer idProject) {
-		projectService.delete(idProject);
+	
+	@DeleteMapping("/{idTool}")
+	public ResponseEntity<Void> toolDelete(@PathVariable Integer idTool) {
+		toolService.delete(idTool);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
-	@PutMapping("/{idProject}")
-	public ResponseEntity<Void> projectUpdate(@PathVariable Integer idProject, @RequestBody ProjectDTO projectDTO) {
-		projectService.update(idProject, projectDTO);
+	@PutMapping("/{idPTool}")
+	public ResponseEntity<Void> toolUpdate(@PathVariable Integer idTool, @RequestBody ToolDTO toolDTO) {
+		toolService.update(idTool, toolDTO);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
