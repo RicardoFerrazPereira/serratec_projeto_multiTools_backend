@@ -1,0 +1,56 @@
+CREATE DATABASE DBPROJETO;
+
+CREATE TABLE public.usuario (
+	id_usuario serial NOT NULL,
+	nome varchar(100) NULL,
+	email varchar(50) NULL,
+	senha varchar(30) NULL,
+	CONSTRAINT usuario_pk PRIMARY KEY (id_usuario)
+);
+CREATE INDEX usuario_email_idx ON public.usuario (email);
+CREATE INDEX usuario_nome_idx ON public.usuario (nome);
+
+CREATE TABLE public.projeto (
+	id_projeto serial NOT NULL,
+	nome varchar(100) NULL,
+	dt_inicio date NULL,
+	email varchar(50) NULL,
+	CONSTRAINT projeto_pk PRIMARY KEY (id_projeto)
+);
+CREATE INDEX projeto_nome_idx ON public.projeto (nome);
+
+CREATE TABLE public.usuario_projeto (
+	id_usuario_projeto serial NOT NULL,
+	id_usuario int NULL,
+	id_projeto int NULL,
+	CONSTRAINT usuario_projeto_pk PRIMARY KEY (id_usuario_projeto),
+	CONSTRAINT usuario_projeto_fk FOREIGN KEY (id_usuario) REFERENCES public.usuario(id_usuario),
+	CONSTRAINT usuario_projeto_fk_1 FOREIGN KEY (id_projeto) REFERENCES public.projeto(id_projeto)
+);
+CREATE INDEX usuario_projeto_id_usuario_idx ON public.usuario_projeto (id_usuario);
+CREATE INDEX usuario_projeto_id_projeto_idx ON public.usuario_projeto (id_projeto);
+
+CREATE TABLE public.ferramenta (
+	id_ferramenta serial NOT NULL,
+	nome varchar(100) NULL,
+	tipo varchar(30) NULL,
+	descricao text NULL,
+	custo_minimo money NULL,
+	tags varchar(50) NULL,
+	CONSTRAINT ferramenta_pk PRIMARY KEY (id_ferramenta)
+);
+CREATE INDEX ferramenta_nome_idx ON public.ferramenta (nome);
+
+CREATE TABLE public.ferramenta_projeto (
+	id_ferramenta_projeto serial NOT NULL,
+	id_ferramenta int NULL,
+	id_projeto int NULL,
+	CONSTRAINT ferramenta_projeto_pk PRIMARY KEY (id_ferramenta_projeto),
+	CONSTRAINT ferramenta_projeto_fk FOREIGN KEY (id_ferramenta) REFERENCES public.ferramenta(id_ferramenta),
+	CONSTRAINT ferramenta_projeto_fk_1 FOREIGN KEY (id_projeto) REFERENCES public.projeto(id_projeto)
+);
+CREATE INDEX ferramenta_projeto_id_ferramenta_idx ON public.ferramenta_projeto (id_ferramenta);
+CREATE INDEX ferramenta_projeto_id_projeto_idx ON public.ferramenta_projeto (id_projeto);
+
+
+
